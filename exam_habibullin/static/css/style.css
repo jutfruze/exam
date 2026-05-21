@@ -1,0 +1,57 @@
+body {
+    background: #f8f9fa;
+}
+
+.banner, .navbar {
+    background: linear-gradient(120deg, #0d47a1, #007bff);
+}
+
+/* .navbar {
+    background: linear-gradient(120deg, #0d47a1, #007bff) ;
+} */
+
+
+.banner-box {
+    background: linear-gradient(120deg, #0d47a1, #007bff);
+    border: 1px solid #ffffff;
+    border-radius: 14px;
+    padding: 22px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.slider-img {
+    height: 260px;
+    object-fit: cover;
+    background: #ffffff;
+}
+
+.course-card {
+    transition: 0.2s;
+}
+
+.course-card:hover {
+    transform: translateY(-3px);
+}
+
+.card {
+    border-radius: 14px;
+}
+
+.form-control, .form-select {
+    border-radius: 9px;
+}
+
+.btn {
+    border-radius: 9px;
+}
+
+@media (max-width: 576px) {
+    .slider-img {
+        height: 190px;
+    }
+
+    .table {
+        font-size: 14px;
+    }
+}

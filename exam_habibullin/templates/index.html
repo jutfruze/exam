@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="banner rounded-3 p-4 p-md-5 mb-4 text-white">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <h1 class="display-6 fw-bold">Запись на курсы водителей пассажирского транспорта</h1>
+            <p class="lead">Автобус, электробус и трамвай. Простая подача заявки через личный кабинет.</p>
+            <a href="{% url 'register' %}" class="btn btn-light me-2">Зарегистрироваться</a>
+            <a href="{% url 'login' %}" class="btn btn-outline-light">Войти</a>
+        </div>
+        <div class="col-md-4 mt-3 mt-md-0">
+            <div class="banner-box">
+                Обучение водителей городского транспорта
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="transportCarousel" class="carousel slide mb-4" data-bs-ride="carousel" data-bs-interval="3000">
+    <div class="carousel-inner rounded-3">
+        {% for image in slider_images %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <img src="/media/{{ image }}" class="d-block w-100 slider-img" alt="Транспорт">
+            </div>
+        {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#transportCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#transportCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card h-100 course-card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Автобус</h5>
+                <p class="card-text">Курс для будущих водителей городских и пригородных автобусов.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 course-card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Электробус</h5>
+                <p class="card-text">Обучение управлению современным электрическим транспортом.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 course-card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Трамвай</h5>
+                <p class="card-text">Базовая подготовка для работы на городских трамвайных маршрутах.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 class="mb-3">Последние отзывы</h3>
+<div class="row g-3">
+    {% for review in reviews %}
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h6>{{ review.user.surname }} {{ review.user.name }}</h6>
+                    <p class="mb-1">{{ review.text }}</p>
+                    <span class="badge bg-success">{{ review.application.get_course_type_display }}</span>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p class="text-muted">Пока отзывов нет.</p>
+    {% endfor %}
+</div>
+{% endblock %}

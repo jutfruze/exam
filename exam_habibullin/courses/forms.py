@@ -31,30 +31,32 @@ class LoginForm(forms.Form):
         for field in self.fields.values():
             field.widget.attrs.update({'class': 'form-control'})
 
+
 class ApplicationForm(forms.ModelForm):
     preferred_date = forms.DateField(
-        label='Дата обучения'
+        label='Дата обучения',
         widget=forms.DateInput(attrs={'type': 'date'})
     )
-    
+
     class Meta:
         model = Application
-        fields = ['course_type', 'payment_type', 'preffered_date']
+        fields = ['course_type', 'payment_type', 'preferred_date']
 
-    def __init__(self,*args, **kwards):
-        super().__init__(*args, **kwards)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs.update({'class': 'form-select'})
-        self.fields['preffered_date'].widget.attrs.update({'class': 'form-control'})
+        self.fields['preferred_date'].widget.attrs.update({'class': 'form-control'})
+
 
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ['text']
         widgets = {
-            'text': forms.Textarea(attrs={'rows':4}),
+            'text': forms.Textarea(attrs={'rows': 4}),
         }
-    
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['text'].widget.attrs.update({'class':'form-control'})
+        self.fields['text'].widget.attrs.update({'class': 'form-control'})

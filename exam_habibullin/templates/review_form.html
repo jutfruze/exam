@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="h4 mb-2">Оставить отзыв</h2>
+                <p class="text-muted">Курс: {{ application.get_course_type_display }}</p>
+                <form method="post">
+                    {% csrf_token %}
+                    {% include 'form_fields.html' %}
+                    <button class="btn btn-success" type="submit">Сохранить отзыв</button>
+                    <a href="{% url 'cabinet' %}" class="btn btn-outline-secondary">Назад</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

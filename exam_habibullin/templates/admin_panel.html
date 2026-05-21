@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="h4 mb-3">Панель администратора</h2>
+
+<div class="card shadow-sm mb-3">
+    <div class="card-body">
+        <form method="get" class="row g-2 align-items-end">
+            <div class="col-md-3">
+                <label class="form-label">Статус</label>
+                <select name="status" class="form-select">
+                    <option value="">Все</option>
+                    {% for value, title in status_choices %}
+                        <option value="{{ value }}" {% if request.GET.status == value %}selected{% endif %}>{{ title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Курс</label>
+                <select name="course" class="form-select">
+                    <option value="">Все</option>
+                    {% for value, title in course_choices %}
+                        <option value="{{ value }}" {% if request.GET.course == value %}selected{% endif %}>{{ title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Сортировка</label>
+                <select name="sort" class="form-select">
+                    <option value="-created_at">Сначала новые</option>
+                    <option value="created_at" {% if request.GET.sort == 'created_at' %}selected{% endif %}>Сначала старые</option>
+                    <option value="preferred_date" {% if request.GET.sort == 'preferred_date' %}selected{% endif %}>По дате обучения</option>
+                    <option value="status" {% if request.GET.sort == 'status' %}selected{% endif %}>По статусу</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-primary w-100">Применить</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-light">
+                <tr>
+                    <th>ФИО</th>
+                    <th>Телефон</th>
+                    <th>Email</th>
+                    <th>Курс</th>
+                    <th>Оплата</th>
+                    <th>Дата</th>
+                    <th>Статус</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for application in page_obj %}
+                    <tr>
+                        <td>{{ application.user.surname }} {{ application.user.name }} {{ application.user.patronymic }}</td>
+                        <td>{{ application.user.phone }}</td>
+                        <td>{{ application.user.email }}</td>
+                        <td>{{ application.get_course_type_display }}</td>
+                        <td>{{ application.get_payment_type_display }}</td>
+                        <td>{{ application.preferred_date|date:'d.m.Y' }}</td>
+                        <td>
+                            <form method="post" action="{% url 'change_status' application.id %}" class="d-flex gap-2">
+                                {% csrf_token %}
+                                <select name="status" class="form-select form-select-sm">
+                                    {% for value, title in status_choices %}
+                                        <option value="{{ value }}" {% if application.status == value %}selected{% endif %}>{{ title }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button class="btn btn-sm btn-outline-primary">OK</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="7" class="text-muted">Заявок пока нет.</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if page_obj.paginator.num_pages > 1 %}
+            <nav>
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Назад</a></li>
+                    {% endif %}
+                    <li class="page-item active"><span class="page-link">{{ page_obj.number }}</span></li>
+                    {% if page_obj.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Вперед</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
