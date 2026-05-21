@@ -1,3 +1,5 @@
+/* некоторые стили(остальное через бутстрап) */
+
 body {
     background: #f8f9fa;
 }
@@ -16,7 +18,7 @@ body {
     border: 1px solid #ffffff;
     border-radius: 14px;
     padding: 22px;
-    font-size: 18px;
+    font-size: 16px;
     text-align: center;
 }
 
@@ -52,6 +54,6 @@ body {
     }
 
     .table {
-        font-size: 14px;
+        font-size: 16px;
     }
 }

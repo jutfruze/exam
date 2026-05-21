@@ -6,6 +6,7 @@ SECRET_KEY = 'django-exam-simple-secret-key'
 DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver']
 
+#установленные приложения
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,6 +47,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'driver_courses.wsgi.application'
 
+ #база данных
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -53,15 +55,14 @@ DATABASES = {
     }
 }
 
-LANGUAGE_CODE = 'ru-ru'
-TIME_ZONE = 'Europe/Moscow'
-USE_I18N = True
-USE_TZ = True
+LANGUAGE_CODE = 'ru-ru' #настройки языка сайта
+TIME_ZONE = 'Europe/Moscow' #настройки времени
+
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
-MEDIA_URL = '/media/'
+MEDIA_URL = '/media/' #медиа файлы
 MEDIA_ROOT = BASE_DIR / 'media'
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField' #дефолт поля
