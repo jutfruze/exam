@@ -26,7 +26,7 @@ def index(request):
     reviews = Review.objects.select_related('user', 'application').order_by('-created_at')[:3]
     return render(request, 'index.html', {'reviews': reviews, 'slider_images': SLIDER_IMAGES})
 
-
+#регистрация
 def register_view(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -38,7 +38,7 @@ def register_view(request):
         form = RegisterForm()
     return render(request, 'register.html', {'form': form})
 
-
+#вход
 def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -62,7 +62,7 @@ def login_view(request):
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
 
-
+#выход
 def logout_view(request):
     request.session.flush()
     messages.info(request, 'Вы вышли из системы')
@@ -76,7 +76,7 @@ def cabinet(request):
     applications = Application.objects.filter(user=user).order_by('-created_at')
     return render(request, 'cabinet.html', {'current_user': user, 'applications': applications})
 
-
+#новая заявка
 def new_application(request):
     user = get_current_user(request)
     if not user:
@@ -93,7 +93,7 @@ def new_application(request):
         form = ApplicationForm()
     return render(request, 'application_form.html', {'form': form})
 
-
+#добавление отзыва
 def add_review(request, application_id):
     user = get_current_user(request)
     if not user:
@@ -118,7 +118,7 @@ def add_review(request, application_id):
         form = ReviewForm()
     return render(request, 'review_form.html', {'form': form, 'application': application})
 
-
+#админка
 def admin_panel(request):
     if not request.session.get('is_admin'):
         return redirect('login')
@@ -147,7 +147,7 @@ def admin_panel(request):
         'course_choices': Application.COURSE_CHOICES,
     })
 
-
+#изменение статуса в админ панели
 def change_status(request, application_id):
     if not request.session.get('is_admin'):
         return redirect('login')

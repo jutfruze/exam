@@ -1,5 +1,6 @@
 from django.db import models
 
+#пользователь
 class User(models.Model):
     surname = models.CharField('Фамилия', max_length=50)
     name = models.CharField('Имя', max_length=50)
@@ -40,7 +41,7 @@ class Application(models.Model):
     def __str__(self):
         return f'{self.user} - {self.get_course_type_display()}'
 
-
+#модель для отзыва
 class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
     application = models.OneToOneField(Application, on_delete=models.CASCADE, verbose_name='Заявка')

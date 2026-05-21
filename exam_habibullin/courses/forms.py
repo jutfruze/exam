@@ -2,7 +2,7 @@ from django import forms
 
 from .models import User, Application, Review
 
-
+#форма регистрации
 class RegisterForm(forms.ModelForm):
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
 
@@ -21,7 +21,7 @@ class RegisterForm(forms.ModelForm):
         for field in self.fields.values():
             field.widget.attrs.update({'class': 'form-control'})
 
-
+#форма авторизации
 class LoginForm(forms.Form):
     login = forms.CharField(label='Логин')
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
@@ -48,7 +48,7 @@ class ApplicationForm(forms.ModelForm):
             field.widget.attrs.update({'class': 'form-select'})
         self.fields['preferred_date'].widget.attrs.update({'class': 'form-control'})
 
-
+#форма отзывов
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
